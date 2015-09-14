@@ -24,18 +24,12 @@
     --diskMode=thin
     --datastore={{ vrops_datastore }}
     --ipProtocol=IPv4
+    --deploymentOption={{ vrops_deployment_option }}
+    '--network={{ vrops_network }}'
+    '--prop:vami.gateway.vRealize_Operations_Manager_Appliance={{ vrops_gateway }}'
+    '--prop:vami.DNS.vRealize_Operations_Manager_Appliance={{ vrops_dns }}'
+    '--prop:vami.ip0.vRealize_Operations_Manager_Appliance={{ vrops_ip }}'
+    '--prop:vami.netmask0.vRealize_Operations_Manager_Appliance={{ vrops_netmask }}'
+    --powerOn={{ vrops_poweron }}
     '{{ ova_location }}/{{ vrops_ova }}'
     'vi://{{ vcenter_user | urlencode }}:{{ vcenter_password | urlencode }}@{{ vcenter_host }}/{{ datacenter_name }}/host/{{ vrops_cluster }}/'
-  register: vrops_ova_deploy
-
-- name: debug deploy
-  debug: var=vrops_ova_deploy
-
-- name: Start vRealize Operations Manager
-  vsphere_guest:
-    vcenter_hostname: "{{ vcenter_host }}"
-    username: "{{ vcenter_user }}"
-    password: "{{ vcenter_password }}"
-    guest: "{{ vrops_name }}"
-    state: powered_on
-  when: vrops_poweron == "ON"
