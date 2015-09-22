@@ -16,20 +16,23 @@
 ---
 - name: Deploy vRealize Operations OVA
   shell: >
-    {{ ovftool }}
+    {{ vrops_ovftool }}
     '--name={{ vrops_name }}'
     --acceptAllEulas
     --allowExtraConfig
+    --X:enableHiddenProperties
     --noSSLVerify
-    --diskMode=thin
     --datastore={{ vrops_datastore }}
-    --ipProtocol=IPv4
+    --diskMode={{ vrops_disk_mode }}
+    --ipProtocol={{ vrops_ip_protocol }}
     --deploymentOption={{ vrops_deployment_option }}
     '--network={{ vrops_network }}'
     '--prop:vami.gateway.vRealize_Operations_Manager_Appliance={{ vrops_gateway }}'
     '--prop:vami.DNS.vRealize_Operations_Manager_Appliance={{ vrops_dns }}'
     '--prop:vami.ip0.vRealize_Operations_Manager_Appliance={{ vrops_ip }}'
     '--prop:vami.netmask0.vRealize_Operations_Manager_Appliance={{ vrops_netmask }}'
-    --powerOn={{ vrops_poweron }}
-    '{{ ova_location }}/{{ vrops_ova }}'
+    '--prop:guestinfo.cis.appliance.ssh.enabled={{ vrops_enable_ssh | string }}'
+    --powerOn={{ vrops_poweron | string }}
+    '{{ vrops_ova_location }}/{{ vrops_ova }}'
     'vi://{{ vcenter_user | urlencode }}:{{ vcenter_password | urlencode }}@{{ vcenter_host }}/{{ datacenter_name }}/host/{{ vrops_cluster }}/'
+

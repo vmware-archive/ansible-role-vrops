@@ -15,5 +15,8 @@
 #
 ---
 ##### this is where the UI installs the ovftool this by default
-ovftool: /usr/local/bin/ovftool/ovftool
-ova_location: "/var/www/html/downloads"
+vrops_ovftool: /usr/local/bin/ovftool/ovftool
+vrops_ova_location: "/var/www/html/downloads"
+vrops_enable_ssh: true
+vrops_disk_mode: 'thin'
+vrops_ip_protocol: 'IPv4'
