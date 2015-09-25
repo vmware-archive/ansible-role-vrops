@@ -20,3 +20,11 @@ vrops_ova_location: "/var/www/html/downloads"
 vrops_enable_ssh: true
 vrops_disk_mode: 'thin'
 vrops_ip_protocol: 'IPv4'
+
+adminpass_body_file: '/tmp/adminpass-body.json'
+role_body_file: '/tmp/role-body.json'
+cluster_name_body_file: '/tmp/cluster-name-body.json'
+slice_name_body_file: '/tmp/slice-name-body.json'
+cluster_state_body_file: '/tmp/init-cluster-body.json'
+
+default_admin_user: 'admin'

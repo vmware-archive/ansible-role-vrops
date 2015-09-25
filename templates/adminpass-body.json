@@ -1,0 +1,4 @@
+
+{
+  "password":"{{ vcenter_password }}"
+}

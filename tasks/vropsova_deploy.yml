@@ -14,6 +14,17 @@
 #  limitations under the License.
 #
 ---
+- name: Check if vrops already exists
+  does_vm_exist:
+    vcenter_host: "{{ vcenter_host }}"
+    vcenter_user: "{{ vcenter_user }}"
+    vcenter_password: "{{ vcenter_password }}"
+    vcenter_port: "{{ vcenter_port }}"
+    vm_name: "{{ vrops_name }}"
+  register: vrops_appliance_exists
+  tags:
+    - vropsova_deploy
+
 - name: Deploy vRealize Operations OVA
   shell: >
     {{ vrops_ovftool }}
@@ -35,4 +46,6 @@
     --powerOn={{ vrops_poweron | string }}
     '{{ vrops_ova_location }}/{{ vrops_ova }}'
     'vi://{{ vcenter_user | urlencode }}:{{ vcenter_password | urlencode }}@{{ vcenter_host }}/{{ datacenter_name }}/host/{{ vrops_cluster }}/'
-
+  when: vrops_appliance_exists.msg == 'Appliance does not exist.'
+  tags:
+    - vropsova_deploy

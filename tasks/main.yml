@@ -15,4 +15,10 @@
 #
 ---
 - name: depoloy vRealize Operations Manager OVA
-  include: vropsova_deploy.yml
+  include: vropsova_deploy.yml tags=vropsova_deploy
+
+- name: initialize vRealize Operations Manager
+  include: vrops_admin_init.yml tags=vrops_admin_init
+
+- name: initialize vRealize Operations Manager
+  include: vrops_init.yml tags=vrops_init

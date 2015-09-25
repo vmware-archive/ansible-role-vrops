@@ -1,0 +1,14 @@
+[
+  {
+    "slice_address": "{{ vrops_ip }}",
+    "admin_slice": "{{ vrops_ip }}",
+    "is_ha_enabled": false,
+    "user_id":"{{ default_admin_user }}",
+    "password":"{{ vcenter_password }}",
+    "slice_roles": [
+      "ADMIN",
+      "DATA",
+      "UI"
+    ]
+  }
+]
