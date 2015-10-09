@@ -16,10 +16,10 @@
 ---
 - name: Check if vrops already exists
   does_vm_exist:
-    vcenter_host: "{{ vcenter_host }}"
-    vcenter_user: "{{ vcenter_user }}"
-    vcenter_password: "{{ vcenter_password }}"
-    vcenter_port: "{{ vcenter_port }}"
+    vcenter_hostname: "{{ mgmt_vc }}"
+    username: "{{ mgmt_vc_username }}"
+    password: "{{ mgmt_vc_password }}"
+    vcenter_port: "{{ mgmt_vc_port }}"
     vm_name: "{{ vrops_name }}"
   register: vrops_appliance_exists
   tags:
