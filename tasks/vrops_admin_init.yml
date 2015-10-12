@@ -25,6 +25,17 @@
   tags:
     - vrops_admin_init
 
+- name: Notice -- Waiting on vROps CASA API availability.
+  wait_for: host="{{ vrops_master_node_ip }}" port=443 delay=30 timeout=3600
+  tags:
+    - vrops_admin_init
+
+# TODO: this really is a 'timed delay' and should actually check the DB port.
+- name: Notice -- Waiting briefly for databases to settle.
+  wait_for: host="{{ vrops_master_node_ip }}" port=443 delay=30 timeout=600
+  tags:
+    - vrops_admin_init
+
 - name: set admin password
   uri:
     url: https://{{ vrops_master_node_ip }}/casa/security/adminpassword/initial
