@@ -30,7 +30,7 @@
     url: https://{{ vrops_ip }}/casa/deployment/cluster/info
     method: PUT
     user: "{{ default_admin_user }}"
-    password: "{{ vcenter_password }}"
+    password: "{{ svc_vrops_admin_password }}"
     force_basic_auth: yes
     HEADER_Content-Type: "application/json"
     body: "{{ lookup('file',cluster_name_body_file) }}"
@@ -54,7 +54,7 @@
     url: https://{{ vrops_ip }}/casa/deployment/slice/{{ vrops_ip }}
     method: PUT
     user: "{{ default_admin_user }}"
-    password: "{{ vcenter_password }}"
+    password: "{{ svc_vrops_admin_password }}"
     force_basic_auth: yes
     HEADER_Content-Type: "application/json"
     body: "{{ lookup('file',slice_name_body_file) }}"
@@ -67,7 +67,7 @@
   uri:
     url: https://{{ vrops_ip }}/casa/deployment/cluster/info
     user: "{{ default_admin_user }}"
-    password: "{{ vcenter_password }}"
+    password: "{{ svc_vrops_admin_password }}"
     force_basic_auth: yes
     HEADER_Content-Type: "application/json"
     validate_certs: no
@@ -81,7 +81,7 @@
     url: https://{{ vrops_ip }}/casa/deployment/cluster/initialization?async=false
     method: POST
     user: "{{ default_admin_user }}"
-    password: "{{ vcenter_password }}"
+    password: "{{ svc_vrops_admin_password }}"
     force_basic_auth: yes
     HEADER_Content-Type: "application/json"
     validate_certs: no

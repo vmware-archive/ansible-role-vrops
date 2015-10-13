@@ -54,7 +54,7 @@
     url: https://{{ vrops_ip }}/casa/deployment/slice/role
     method: POST
     user: "{{ default_admin_user }}"
-    password: "{{ vcenter_password }}"
+    password: "{{ svc_vrops_admin_password }}"
     force_basic_auth: yes
     HEADER_Content-Type: "application/json"
     body: "{{ lookup('file',role_body_file) }}"

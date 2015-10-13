@@ -4,7 +4,7 @@
     "admin_slice": "{{ vrops_ip }}",
     "is_ha_enabled": false,
     "user_id":"{{ default_admin_user }}",
-    "password":"{{ vcenter_password }}",
+    "password":"{{ svc_vrops_admin_password }}",
     "slice_roles": [
       "ADMIN",
       "DATA",

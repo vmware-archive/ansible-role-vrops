@@ -16,9 +16,9 @@
 ---
 - name: Check if vrops already exists
   does_vm_exist:
-    vcenter_hostname: "{{ mgmt_vc }}"
-    username: "{{ mgmt_vc_username }}"
-    password: "{{ mgmt_vc_password }}"
+    vcenter_host: "{{ mgmt_vc }}"
+    vcenter_user: "{{ mgmt_vc_username }}"
+    vcenter_password: "{{ mgmt_vc_password }}"
     vcenter_port: "{{ mgmt_vc_port }}"
     vm_name: "{{ vrops_name }}"
   register: vrops_appliance_exists
@@ -45,7 +45,7 @@
     '--prop:guestinfo.cis.appliance.ssh.enabled={{ vrops_enable_ssh | string }}'
     --powerOn={{ vrops_poweron | string }}
     '{{ vrops_ova_location }}/{{ vrops_ova }}'
-    'vi://{{ vcenter_user | urlencode }}:{{ vcenter_password | urlencode }}@{{ vcenter_host }}/{{ datacenter_name }}/host/{{ vrops_cluster }}/'
+    'vi://{{ mgmt_vc_username | urlencode }}:{{ mgmt_vc_password | urlencode }}@{{ mgmt_vc }}/{{ mgmt_vc_datacenter }}/host/{{ mgmt_vc_cluster }}/'
   when: vrops_appliance_exists.msg == 'Appliance does not exist.'
   tags:
     - vropsova_deploy
