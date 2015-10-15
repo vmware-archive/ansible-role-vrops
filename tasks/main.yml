@@ -17,8 +17,11 @@
 - name: depoloy vRealize Operations Manager OVA
   include: vropsova_deploy.yml tags=vropsova_deploy
 
-- name: initialize vRealize Operations Manager
+- name: initialize vRealize Operations Manager admin user
   include: vrops_admin_init.yml tags=vrops_admin_init
 
 - name: initialize vRealize Operations Manager
-  include: vrops_init.yml tags=vrops_init
+  include: vrops_master_init.yml tags=vrops_master_init
+
+- name: initialize vRealize Operations Manager cluster members
+  include: vrops_cluster_init.yml tags=vrops_cluster_init

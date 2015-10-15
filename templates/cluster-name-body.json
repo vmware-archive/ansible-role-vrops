@@ -1,5 +1,5 @@
 
 {
-  "cluster_name":"{{ vrops_cluster_name }}"
+  "cluster_name":"{{ vrops_loadbalancer_address }}"
 }
 

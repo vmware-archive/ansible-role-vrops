@@ -27,7 +27,7 @@
 
 - name: set admin password
   uri:
-    url: https://{{ vrops_ip }}/casa/security/adminpassword/initial
+    url: https://{{ vrops_master_node_ip }}/casa/security/adminpassword/initial
     method: PUT
     HEADER_Content-Type: "application/json"
     body:  "{{ lookup('file',adminpass_body_file) }}"
@@ -40,25 +40,29 @@
 
 - name: create admin role request
   template:
-    src: role-body.json
-    dest: "{{ role_body_file }}"
+    src: role-body-master.json
+    dest: "{{ item.file }}"
+  with_items:
+    - { ip: "{{ vrops_master_node_ip }}", file: '/tmp/role_body_master.json', roles: '["ADMIN","DATA","UI"]', thumbprint: '' } 
+  register: create_role_request
   tags:
     - vrops_admin_init
 
-- debug: msg="{{ lookup('file',role_body_file) }}"
+- debug: msg="{{ create_role_request }}"
   tags:
     - vrops_admin_init
 
 - name: set admin role
   uri:
-    url: https://{{ vrops_ip }}/casa/deployment/slice/role
+    url: https://{{ item.item.ip }}/casa/deployment/slice/role
     method: POST
     user: "{{ default_admin_user }}"
     password: "{{ svc_vrops_admin_password }}"
     force_basic_auth: yes
     HEADER_Content-Type: "application/json"
-    body: "{{ lookup('file',role_body_file) }}"
+    body: "{{ lookup('file',item.item.file) }}"
     validate_certs: no
     status_code: 202
+  with_items: "{{ create_role_request.results }}"
   tags:
     - vrops_admin_init

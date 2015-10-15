@@ -23,11 +23,11 @@
 
 - debug: msg="{{ lookup('file',cluster_name_body_file) }}"
   tags:
-    - vrops_init
+    - vrops_master_init
 
 - name: configure cluster name
   uri:
-    url: https://{{ vrops_ip }}/casa/deployment/cluster/info
+    url: https://{{ vrops_master_node_ip }}/casa/deployment/cluster/info
     method: PUT
     user: "{{ default_admin_user }}"
     password: "{{ svc_vrops_admin_password }}"
@@ -43,15 +43,15 @@
     src: slice-name-body.json
     dest: "{{ slice_name_body_file }}"
   tags:
-    - vrops_init
+    - vrops_master_init
 
 - debug: msg="{{ lookup('file',slice_name_body_file) }}"
   tags:
-    - vrops_init
+    - vrops_master_init
 
 - name: configure slice name
   uri:
-    url: https://{{ vrops_ip }}/casa/deployment/slice/{{ vrops_ip }}
+    url: https://{{ vrops_master_node_ip }}/casa/deployment/slice/{{ vrops_master_node_ip }}
     method: PUT
     user: "{{ default_admin_user }}"
     password: "{{ svc_vrops_admin_password }}"
@@ -61,11 +61,11 @@
     validate_certs: no
     status_code: 200
   tags:
-    - vrops_init
+    - vrops_master_init
 
 - name: get cluster state
   uri:
-    url: https://{{ vrops_ip }}/casa/deployment/cluster/info
+    url: https://{{ vrops_master_node_ip }}/casa/deployment/cluster/info
     user: "{{ default_admin_user }}"
     password: "{{ svc_vrops_admin_password }}"
     force_basic_auth: yes
@@ -74,11 +74,11 @@
     status_code: 200
   register: cluster_info_response
   tags:
-    - vrops_init
+    - vrops_master_init
 
 - name: initialize cluster
   uri:
-    url: https://{{ vrops_ip }}/casa/deployment/cluster/initialization?async=false
+    url: https://{{ vrops_master_node_ip }}/casa/deployment/cluster/initialization?async=false
     method: POST
     user: "{{ default_admin_user }}"
     password: "{{ svc_vrops_admin_password }}"
@@ -89,4 +89,4 @@
     status_code: 200
   when: cluster_info_response.json.installation_state == 'NEW'
   tags:
-    - vrops_init
+    - vrops_master_init
