@@ -8,47 +8,40 @@ This role currently supports Debian/Ubuntu distros and requires a valid installa
 
 ## Role Variables
 
-Available variables are listed below, along with default values (see `defaults/main.yml`):
+```yaml
+# Where the the ovftool is located by default
+vrops_ovftool: /usr/local/bin/ovftool/ovftool
 
-    vrops_ovftool: /usr/local/bin/ovftool/ovftool
+# Where the OVA file for the vROps installation exists.
+vrops_ova_location: "/var/www/html/downloads"
 
-Where the ovftool exists. 
+# Whether to enable SSH access on the installed appliance(s).
+vrops_enable_ssh: true
 
-    vrops_ova_location: "/var/www/html/downloads"
+# The provisioning mode for the disk on installation.
+vrops_disk_mode: 'thin'
 
-Where the OVA file for the vROps installation exists.
+# The IP protocol version to support.
+vrops_ip_protocol: 'IPv4'
 
-    vrops_enable_ssh: true
+# Where to place generated password (http) body files during play runs.
+adminpass_body_file: '/tmp/adminpass-body.json'
 
-Whether to enable SSH access on the installed appliance(s).
+# Where to place generated body role files during play runs.
+role_body_prefix: '/tmp/role-body'
 
-    vrops_disk_mode: 'thin'
+# Where to place generated cluster body files during play runs.
+cluster_name_body_file: '/tmp/cluster-name-body.json'
 
-The provisioning mode for the disk on installation.
+# Where to place generated slice name (HTTP) body files during play runs.
+slice_name_body_file: '/tmp/slice-name-body.json'
 
-    vrops_ip_protocol: 'IPv4'
+# Where to place generated cluster state (HTTP) body files during play runs.
+cluster_state_body_file: '/tmp/init-cluster-body.json'
 
-The IP protocol version to support.
-
-    adminpass_body_file: '/tmp/adminpass-body.json'
-
-Where to place generated password (http) body files during play runs.
-
-    role_body_prefix: '/tmp/role-body'
-
-Where to place generated body role files during play runs.
-
-    cluster_name_body_file: '/tmp/cluster-name-body.json'
-
-Where to place generated cluster body files during play runs.
-
-    slice_name_body_file: '/tmp/slice-name-body.json'
-
-Where to place generated slice name (HTTP) body files during play runs.
-
-    cluster_state_body_file: '/tmp/init-cluster-body.json'
-
-Where to place generated cluster state (HTTP) body files during play runs.
+# The default administrator user to setup during deployment.
+default_admin_user: 'admin'
+```
 
 ## Example playbook
 
